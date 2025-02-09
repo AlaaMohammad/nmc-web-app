@@ -25,8 +25,6 @@ return new class extends Migration
             $table->string('priority')->nullable();
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients');
-            $table->unsignedBigInteger('dispatcher_id')->nullable();
-            $table->foreign('dispatcher_id')->references('id')->on('dispatchers');
             $table->string('location')->nullable();
            $table->float('latitude')->nullable();
            $table->float('longitude')->nullable();
