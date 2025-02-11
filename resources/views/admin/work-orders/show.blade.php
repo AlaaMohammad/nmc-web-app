@@ -46,11 +46,11 @@
 </div>
                     <div class="card-body">
                         <h6>Work Order Images</h6>
-                        @if($workOrder->workOrderImages->isEmpty())
+                        @if($workOrder->images->isEmpty())
                             <p>No images uploaded</p>
                         @else
                         <div class="row">
-                            @foreach($workOrder->workOrderImages as $image)
+                            @foreach($workOrder->images as $image)
                                 <div class="col-4">
                                     <img src="{{$image->wo_image_path}}" class="img-fluid">
                                 </div>

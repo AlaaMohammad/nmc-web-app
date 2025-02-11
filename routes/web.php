@@ -32,6 +32,8 @@ Route::get('/', function () {
 
 Auth::routes();
 //admin login
+Route::get('/categories/{categoryId}/services', [ServiceCategoryController::class, 'getServices']);
+
 Route::get('admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
 Route::post('admin/login', [AdminAuthController::class, 'submitLogin'])->name('admin.login.post');
 Route::get('admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');

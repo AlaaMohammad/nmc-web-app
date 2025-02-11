@@ -50,8 +50,27 @@ class DashboardController extends Controller
         $totalRevenue = $completedWorkOrders->sum('total_amount');
         $activeClients = Client::where('status', 'active')->count();
         $latestWorkOrders = WorkOrder::latest()->take(5)->get();
+        $openWorkOrders       = WorkOrder::where('current_status','pending')->count();
+        //dd($openWorkOrders);
+        $monthlyLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];  // or fetch dynamically
+        $monthlyWorkOrdersData = WorkOrder::selectRaw('
+                MONTH(created_at) as month,
+                MONTHNAME(created_at) as month_name,
+                COUNT(*) as total
+            ')
+            ->whereYear('created_at', now()->year) // only current year
+            ->groupBy(DB::raw('MONTH(created_at)'), DB::raw('MONTHNAME(created_at)'))
+            ->orderBy(DB::raw('MONTH(created_at)'))
+            ->get();
 
-        return view('admin.dashboard', compact('latestWorkOrders','activeClients','totalRevenue','notAssignedWorkOrders','averageResponseTime','totalWorkOrders', 'completedWorkOrders', 'completionRate'));
+        $monthlyWorkOrders = $monthlyWorkOrdersData->pluck('total');
+        //$markers = DB::table('address')->select('lat', 'lng', 'name AS title')->get();
+
+
+
+
+
+        return view('admin.dashboard', compact('latestWorkOrders','activeClients','totalRevenue','notAssignedWorkOrders','averageResponseTime','totalWorkOrders', 'completedWorkOrders', 'completionRate','openWorkOrders','monthlyLabels','monthlyWorkOrders',));
 
 
     }
