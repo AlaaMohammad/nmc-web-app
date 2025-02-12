@@ -53,17 +53,32 @@ class DashboardController extends Controller
         $openWorkOrders       = WorkOrder::where('current_status','pending')->count();
         //dd($openWorkOrders);
         $monthlyLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];  // or fetch dynamically
-        $monthlyWorkOrdersData = WorkOrder::selectRaw('
-                MONTH(created_at) as month,
-                MONTHNAME(created_at) as month_name,
-                COUNT(*) as total
-            ')
-            ->whereYear('created_at', now()->year) // only current year
-            ->groupBy(DB::raw('MONTH(created_at)'), DB::raw('MONTHNAME(created_at)'))
-            ->orderBy(DB::raw('MONTH(created_at)'))
-            ->get();
+        $databaseType = DB::connection()->getDriverName();
 
-        $monthlyWorkOrders = $monthlyWorkOrdersData->pluck('total');
+        if ($databaseType == 'mysql') {
+            $query = "SELECT
+                EXTRACT(MONTH FROM created_at) AS month,
+                DATE_FORMAT(created_at, '%M') AS month_name,
+                COUNT(*) AS total
+              FROM work_orders
+              WHERE EXTRACT(YEAR FROM created_at) = 2025
+              GROUP BY EXTRACT(MONTH FROM created_at), month_name
+              ORDER BY EXTRACT(MONTH FROM created_at) ASC";
+        } else { // PostgreSQL
+            $query = "SELECT
+                EXTRACT(MONTH FROM created_at) AS month,
+                TO_CHAR(created_at, 'Month') AS month_name,
+                COUNT(*) AS total
+              FROM work_orders
+              WHERE EXTRACT(YEAR FROM created_at) = 2025
+              GROUP BY EXTRACT(MONTH FROM created_at), month_name
+              ORDER BY EXTRACT(MONTH FROM created_at) ASC";
+        }
+
+        $monthlyWorkOrders= DB::select($query);
+
+
+        //$monthlyWorkOrders = $monthlyWorkOrdersData->pluck('total');
         //$markers = DB::table('address')->select('lat', 'lng', 'name AS title')->get();
 
 
