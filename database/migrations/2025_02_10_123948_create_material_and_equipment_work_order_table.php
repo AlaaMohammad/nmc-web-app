@@ -20,7 +20,7 @@ return new class extends Migration
             // Shorter constraint name
             $table->foreign('material_and_equipment_id', 'maeworkorder_mae_id_foreign')
                 ->references('id')
-                ->on('material_and_equipments')
+                ->on('material_and_equipment')
                 ->onDelete('cascade');
 
             $table->foreign('work_order_id', 'maeworkorder_wo_id_foreign')
