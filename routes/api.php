@@ -21,6 +21,7 @@ Route::group(['prefix' => 'v1'] , function () {
     Route::get('work-orders/today', [WorkOrderController::class, 'listWorkOrdersToday']);
     Route::get('/dashboard', [WorkOrderController::class, 'dashboard']);
     Route::get('/test-connection', [AuthController::class, 'testConnection']);
+    Route::get('/saveWorkOrderImag',[WorkOrderController::class, 'saveWorkOrderImag']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
    Route::get('/work-orders/unassigned', [WorkOrderController::class, 'listUnassignedWorkOrders']);
