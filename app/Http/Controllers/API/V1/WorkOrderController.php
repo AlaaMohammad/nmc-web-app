@@ -348,8 +348,11 @@ class WorkOrderController extends Controller
             $workOrder->internal_status = 'Check In';
             $workOrder->current_status = 'checked in';
             $workOrder->save();
-            $workOrder->materials()->attach(1, ['material_name' => $materials['name'] ?? 'No Material']); // Assuming 'quantity' exists in request
-
+            if (!empty($materials)) {
+                foreach ($materials as $material) {
+                    $workOrder->materials()->attach(1, ['material_name' => $material['name'] ?? 'No Material']);
+                }
+            }
             $workOrder->workOrderLogs()->create([
                 'action' => 'checked_in',
                 'created_by' => Technician::where('id', $technician->id)->first()->full_name,
