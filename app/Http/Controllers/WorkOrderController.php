@@ -132,7 +132,8 @@ class WorkOrderController extends Controller
     public function show(WorkOrder $workOrder)
     {
         //
-        return view('admin.work-orders.show', compact('workOrder'));
+        $materials = $workOrder->materials;
+        return view('admin.work-orders.show', compact('workOrder','materials'));
     }
 
     /**

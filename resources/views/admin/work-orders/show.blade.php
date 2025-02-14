@@ -71,7 +71,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($workOrder->materials as $item)
+                                @foreach($materials as $item)
                                     <tr>
                                         <td>{{$item->pivot->material_name}}</td>
                                     </tr>
