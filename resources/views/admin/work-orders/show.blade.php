@@ -68,14 +68,12 @@
                                 <thead>
                                 <tr>
                                     <th>Material Name</th>
-                                    <th>Material Quantity</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($workOrder->workOrderMaterials as $item)
+                                @foreach($workOrder->materials as $item)
                                     <tr>
                                         <td>{{$item->material_name}}</td>
-                                        <td>{{$item->quantity}}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
