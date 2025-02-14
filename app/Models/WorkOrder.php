@@ -62,7 +62,7 @@ class WorkOrder extends Model
     }
 
     public function materials(){
-           return $this->belongsToMany(MaterialAndEquipment::class);
+           return $this->belongsToMany(MaterialAndEquipment::class) ->withPivot('material_name');;
 
         }
 

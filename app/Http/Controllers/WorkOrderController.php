@@ -133,7 +133,7 @@ class WorkOrderController extends Controller
     {
         //
         $materials = $workOrder->materials;
-        dd($materials);
+       // dd($materials);
         return view('admin.work-orders.show', compact('workOrder','materials'));
     }
 
