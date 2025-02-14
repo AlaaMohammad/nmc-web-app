@@ -348,7 +348,7 @@ class WorkOrderController extends Controller
             $workOrder->internal_status = 'Check In';
             $workOrder->current_status = 'checked in';
             $workOrder->save();
-            $workOrder->materials()->attach($materials);
+            $workOrder->materials()->attach(1,$materials);
 
             $workOrder->workOrderLogs()->create([
                 'action' => 'checked_in',
