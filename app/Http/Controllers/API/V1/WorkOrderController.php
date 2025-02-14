@@ -354,7 +354,7 @@ class WorkOrderController extends Controller
                 }
             }
             $workOrder->workOrderLogs()->create([
-                'action' => 'checked_in',
+                'action' => 'material added',
                 'created_by' => Technician::where('id', $technician->id)->first()->full_name,
                 'user_role' => 'technician'
             ]);
