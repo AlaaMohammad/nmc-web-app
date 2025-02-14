@@ -61,7 +61,7 @@ class WorkOrder extends Model
         return $this->hasMany(WorkOrderRequest::class);
     }
 
-    public function workOrderMaterials(){
+    public function materials(){
            return $this->belongsToMany(MaterialAndEquipment::class);
 
         }
