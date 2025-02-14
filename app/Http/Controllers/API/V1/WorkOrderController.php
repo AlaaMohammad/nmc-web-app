@@ -344,15 +344,16 @@ class WorkOrderController extends Controller
             $materials = $request->input('materials');
             $technician = auth('sanctum')->user();
             $workOrder = WorkOrder::where('wo_number',$workOrderId)->first();
+
+            $workOrder->internal_status = 'Check In';
+            $workOrder->current_status = 'checked in';
+            $workOrder->checkin_time = now();
+            $workOrder->save();
             foreach ($materials as  $value) {
                 $workOrder->workOrderMaterials()->create([
                     'material_name' => $value['name'],
                 ]);
             }
-            $workOrder->internal_status = 'Check In';
-            $workOrder->current_status = 'checked in';
-            $workOrder->checkin_time = now();
-            $workOrder->save();
 //            $workOrder->workOrderLogs()->create([
 //                'action' => 'checked_in',
 //                'created_by' => Technician::where('id', $technician->id)->first()->full_name,
