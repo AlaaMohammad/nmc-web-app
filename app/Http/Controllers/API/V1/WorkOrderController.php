@@ -347,18 +347,17 @@ class WorkOrderController extends Controller
 
             $workOrder->internal_status = 'Check In';
             $workOrder->current_status = 'checked in';
-            $workOrder->checkin_time = now();
             $workOrder->save();
             foreach ($materials as  $value) {
                 $workOrder->workOrderMaterials()->create([
                     'material_name' => $value['name'],
                 ]);
             }
-//            $workOrder->workOrderLogs()->create([
-//                'action' => 'checked_in',
-//                'created_by' => Technician::where('id', $technician->id)->first()->full_name,
-//                'user_role' => 'technician'
-//            ]);
+            $workOrder->workOrderLogs()->create([
+                'action' => 'checked_in',
+                'created_by' => Technician::where('id', $technician->id)->first()->full_name,
+                'user_role' => 'technician'
+            ]);
             return response()->json(['message' => 'Material saved successfully'], 200);
 
         } catch (\Exception $e) {
