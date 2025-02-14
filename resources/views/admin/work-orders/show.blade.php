@@ -60,7 +60,7 @@
                     </div>
                     <div class="card-body">
                         <h6>Work Order Materials and Equipments</h6>
-                        @if($workOrder->workOrderMaterials->isEmpty())
+                        @if($workOrder->materials->isEmpty())
                             <p>No Materials Selected</p>
                         @else
                         <div class="row">
