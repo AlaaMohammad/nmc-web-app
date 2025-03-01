@@ -76,8 +76,8 @@ class AuthController extends Controller
 
         //use config file to get the twilio credentials
         $message = "Welcome to our platform. Your verification code is: $verification_code.";
-        //$recipients = $request->phone_number;
-        $recipients = '+962776802827';
+        $recipients = $request->phone_number;
+        //$recipients = '+962776802827';
 
         // Send the SMS
         try {
